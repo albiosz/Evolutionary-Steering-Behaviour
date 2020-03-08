@@ -14,6 +14,7 @@ class Entity:
         self.r = DEFAULT_R
         self.canvas = canvas
         self.entity_draw = 0
+        self.pos_changed = False
 
     def draw(self):
         x1 = self.pos.ret_cor()["x1"]
@@ -35,7 +36,8 @@ class Entity:
 
 
 class Edible(Entity):
-    def __init__(self, canvas, hf, color, x=random.randint(0, WIN_WIDTH), y=random.randint(0, WIN_HEIGHT)):
+    def __init__(self, canvas, hf, color, edible_type, x=random.randint(0, WIN_WIDTH), y=random.randint(0, WIN_HEIGHT)):
         Entity.__init__(self, canvas, color, x, y)
+        self.type = edible_type
         self.healing_factor = hf
         self.dead = False

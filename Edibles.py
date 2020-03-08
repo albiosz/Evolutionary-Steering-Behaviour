@@ -13,11 +13,16 @@ class Edibles:
 
     def draw_all(self):
         for en in self.entities:
-            print(en.pos.ret_cor().values())
-            en.draw()
+            if not en.dead:
+                en.draw()
 
-    def create_random(self, num, hf, color):
+    def update_draw(self):
+        for en in self.entities:
+            if en.pos_changed:
+                en.update_draw()
+
+    def create_random(self, num, hf, color, edible_type):
         for n in range(num):
-            obj = Edible(self.canvas, hf, color, random.randint(0, WIN_WIDTH), random.randint(0, WIN_HEIGHT))
+            obj = Edible(self.canvas, hf, color, edible_type, random.randint(0, WIN_WIDTH), random.randint(0, WIN_HEIGHT))
             self.entities.append(obj)
 
