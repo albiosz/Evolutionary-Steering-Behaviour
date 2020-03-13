@@ -3,7 +3,7 @@ import random
 from Constants import *
 
 
-class Edibles:
+class Group:
     def __init__(self, canvas):
         self.entities = []
         self.canvas = canvas
@@ -23,6 +23,9 @@ class Edibles:
 
     def create_random(self, num, hf, color, edible_type):
         for n in range(num):
-            obj = Edible(self.canvas, hf, color, edible_type, random.randint(0, WIN_WIDTH), random.randint(0, WIN_HEIGHT))
+            x = rand_on_screen('x')
+            y = rand_on_screen('y')
+            print(x,y)
+            obj = Edible(self.canvas, hf, color, edible_type, x, y)
             self.entities.append(obj)
 

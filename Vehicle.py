@@ -5,11 +5,12 @@ from collections import defaultdict
 from Entity import Entity
 from MyPackages.GeometryPackage.vector_class import Vector
 from MyPackages.GeometryPackage.point_class import Point
+import Constants
 from Constants import *
 
 
 class Vehicle(Entity):
-    def __init__(self, canvas, color, x=random.randint(0, WIN_WIDTH), y=random.randint(0, WIN_HEIGHT - 50)):
+    def __init__(self, canvas, color, x=rand_on_screen('x'), y=rand_on_screen('y')):
         Entity.__init__(self, canvas, color, x, y)
 
         self.r = VEH_SIZE
@@ -20,6 +21,7 @@ class Vehicle(Entity):
         # self.target = Vector(random.randint(0, WIN_WIDTH), random.randint(0, WIN_HEIGHT))
         self.target = Entity(canvas, TARGET_COLOR)
         self.seeking = False
+        self.hp = 1
         self.dead = False
 
         self.dna = defaultdict(dict)
@@ -39,6 +41,7 @@ class Vehicle(Entity):
         self.target.draw()
 
     def rotate(self, angle):
+
         for num in range(len(self.vertices)):
             self.vertices[num] = Vector(self.vertices[num].ret_cor()['x1'] - self.pos.ret_cor()['x1'],
                                         self.vertices[num].ret_cor()['y1'] - self.pos.ret_cor()['y1']) \
@@ -63,16 +66,21 @@ class Vehicle(Entity):
             self.vertices[num] += self.vel
 
     def update_draw(self):
+        if self.dead:
+            return
+
         if self.target.pos_changed:
             self.target.update_draw()
 
         self.set_angle(self.vel.angle())
         self.move()
+        self.canvas.itemconfig(self.entity_draw, fill=lerp_color(VEH_DEAD, VEH_ALIVE, self.hp))
         self.canvas.coords(self.entity_draw, list(self.vertices[0].ret_cor().values())[2:4]
                            + list(self.vertices[1].ret_cor().values())[2:4]
                            + list(self.vertices[2].ret_cor().values())[2:4])
 
     def update(self):
+        self.change_hp(HP_DEC_PER_FRAME)
         if self.dead:
             return
 
@@ -95,6 +103,9 @@ class Vehicle(Entity):
         return (target.copy() - self.pos).set_mag(MAX_SPEED) - self.vel
 
     def interact_with_entities(self, entities):
+        if self.dead:
+            return
+
         sum_acc = Vector(0, 0)
         for e in entities:
             ds = self.pos.p1.dsq(e.pos.p1)
@@ -113,9 +124,9 @@ class Vehicle(Entity):
                 continue
             dsq = self.pos.p1.dsq(e.pos.p1)
             if dsq < pow(self.r * 2 + e.r, 2):
-                e.set_pos(random.randint(0, WIN_WIDTH), random.randint(0, WIN_HEIGHT))
+                e.set_pos(rand_on_screen('x'), rand_on_screen('y'))
                 e.pos_changed = True
-                # self.health += e.healing_factor
+                self.change_hp(e.healing_factor)
 
     def draw_range(self):
         radiuses = [[self.dna["RADIUS"]["FOOD"], FOOD_COLOR, "FOOD"],
@@ -133,6 +144,18 @@ class Vehicle(Entity):
         for el in radiuses:
             self.canvas.coords(self.ranges_draw[el[2]], [self.pos.p1.x-el[0], self.pos.p1.y-el[0],
                                                          self.pos.p1.x+el[0], self.pos.p1.y+el[0]])
+
+
+    def change_hp(self, value):
+        self.hp += value
+
+        if self.hp <= 0:
+            self.dead = True
+        elif self.hp > 1:
+            self.hp = 1
+
+    def draw_vectors(self):
+        pass
 
     def random_dna(self):
         self.dna["RADIUS"]["FOOD"] = LIMIT_RADIUS
