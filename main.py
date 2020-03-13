@@ -76,7 +76,7 @@ while True:
         if vehicles.all_dead():
             restart()
 
-        time.sleep(0.1)
+        time.sleep(1)
 
     canvas.delete("all")
 

@@ -73,7 +73,6 @@ class Vehicle(Entity):
             self.target.update_draw()
 
         self.set_angle(self.vel.angle())
-        self.move()
         self.canvas.itemconfig(self.entity_draw, fill=lerp_color(VEH_DEAD, VEH_ALIVE, self.hp))
         self.canvas.coords(self.entity_draw, list(self.vertices[0].ret_cor().values())[2:4]
                            + list(self.vertices[1].ret_cor().values())[2:4]
@@ -96,6 +95,7 @@ class Vehicle(Entity):
         self.vel += self.acc
         self.vel.limit(MAX_SPEED)
         self.acc.set_mag(0)
+        self.move()
 
         self.seeking = False
 
