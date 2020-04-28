@@ -9,7 +9,7 @@ different conditions. To keep some variety mutation is used with some probabilit
 It was tested with Python 3.7.4 with Tkinter installed (graphic library) </br>
 python main.py
 
-## Constants
+## Customizable parameters
 It is possible to adjust parameters of the simulation in Constants.py file. </br>
 Most "interesting": </br>
 NUM_OF_FOOD (number of food entities on board, default = 20) </br>
