@@ -1,6 +1,7 @@
 from Entity import Edible
 import random
 from Constants import *
+from Control_functions import *
 
 
 class Group:
@@ -23,9 +24,6 @@ class Group:
 
     def create_random(self, num, hf, color, edible_type):
         for n in range(num):
-            x = rand_on_screen('x')
-            y = rand_on_screen('y')
-            print(x,y)
-            obj = Edible(self.canvas, hf, color, edible_type, x, y)
+            obj = Edible(self.canvas, hf, color, edible_type, rand_on_screen('x'), rand_on_screen('y'))
             self.entities.append(obj)
 
