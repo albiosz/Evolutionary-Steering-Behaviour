@@ -6,19 +6,18 @@ long time. That's the reson why chance is given to the short living Vehicles to 
 different conditions. To keep some variety mutation is used with some probability.
 
 # How to run
-It was tested with Python 3.7.4 with Tkinter installed (graphic library)
+It was tested with Python 3.7.4 with Tkinter installed (graphic library) </br>
 python main.py
 
 
 # Constants
-It is possible to adjust parameters of the simulation in Constants.py file.
-Most "interesting":
-NUM_OF_FOOD (number of food entities on board, default = 20)
-NUM_OF_POISON (number of poison on board, default = 20)
-NUM_OF_VEHICLES (number of vehicles on board, default = 10)
-
-MUTATATION_RATE (the probability of mutation to happen, default = 0.1)
-MUTATION_IMPACT (how the mutation can impact attributes, default = 0.05)
+It is possible to adjust parameters of the simulation in Constants.py file. </br>
+Most "interesting": </br>
+NUM_OF_FOOD (number of food entities on board, default = 20) </br>
+NUM_OF_POISON (number of poison on board, default = 20) </br>
+NUM_OF_VEHICLES (number of vehicles on board, default = 10) </br>
+MUTATATION_RATE (the probability of mutation to happen, default = 0.1) </br>
+MUTATION_IMPACT (how the mutation can impact attributes, default = 0.05) </br>
 
 # Do I need to wait long to receive some results?
-The answer is no. You can always change number of calculations per frame in simulation window.
+The answer is no. You can always change number of calculations per frame in simulation window. 
