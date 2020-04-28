@@ -19,7 +19,7 @@ MUTATATION_RATE (the probability of mutation to happen, default = 0.1) </br>
 MUTATION_IMPACT (how the mutation can impact attributes, default = 0.05) </br>
 
 ## Interface
-<img src="images/interface.png" width="500"> <\br>
+<img src="images/interface.png" width="500">
 1. From the left:
  * space where you can put number of calculations per frame (default = 1, it does not need to be confirmed),
  * 'Quit' - press to end the whole program,
